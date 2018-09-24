@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- v-for根据数组的选项列表进行渲染 -->
+    <ul id="example1">
+        <li v-for="item in items">
+            {{ item.message }}
+        </li>
+    </ul>
+
+    <!-- 支持第二个参数为当前项的索引 -->
+    <ul id="example2">
+        <li v-for="(item,index) in items">
+            {{ parentMessage}} - {{item.name}} -{{item.age}}-{{index}}
+        </li>
+    </ul>
+
+    <!-- 通过对象属性来迭代 
+        支持三个参数，按顺序分别为 值，键名，索引
+    -->
+    <ul id="v-for-object">
+        <li v-for="(value,key,index) in object">
+            {{index}}. {{ key }}: {{ value }}
+        </li>
+    </ul>
+
+    <ul id="example4">
+        <li v-for="n in evenNumbers"> {{ n }} </li>
+    </ul>
+
+    <script>
+        var example1 = new Vue({
+            el: '#example1',
+            data: {
+                items: [
+                    { message: 'Vue' },
+                    { message: 'React' },
+                    { message: 'Angular' },
+                ]
+            }
+        })
+
+        var example2 = new Vue({
+            el: '#example2',
+            data: {
+                parentMessage: 'Rich!',
+                items: [
+                    { name: 'ycx', age: 18 },
+                    { name: 'yt', age: 24 },
+
+                ]
+            }
+
+        })
+
+        var example3 = new Vue({
+            el:'#v-for-object',
+            data: {
+                object: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    age: 20
+                }
+            }
+        })
+        
+        var example4 = new Vue({
+            el:'#example4',
+            data: {
+                numbers:[1,2,3,4,5]
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function(num){
+                        return num%2 === 0
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
