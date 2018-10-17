@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Class 与 Style 绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .text-red {
+            color: red;
+        }
+
+        .bg-yellow {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>使用v-bind操作元素的class列表和内联样式</h1>
+    <hr>
+    <div v-bind:class="{ 'text-red': isRed }" id="div1">
+
+        <p>传给v-bind:class一个对象，来动态切换class：</p>
+        <p> v-bind:class="{ 'bg-red': isRed }" </p>
+        <p>上面的语法表示 bg-red 这个 class 存在与否将取决于数据属性 isRed 的 truthiness。 你可以在对象中传入更多属性来动态切换多个 class。</p>
+    </div>
+    <hr>
+    <div v-bind:class="classObject" id="div2">
+        <h2>绑定返回对象的计算属性</h2>
+        <p> v-bind:class="classObject" 绑定的是对象的计算属性</p>
+        <pre>
+            computed: {
+                classObject: function () {
+                  return {
+                    'bg-yellow': this.isActive && !this.error,
+                    'text-danger': this.error && this.error
+                  }
+                }
+              }
+        </pre>
+    </div>
+    <hr>
+    <div v-bind:style="styleObj" id="div3">
+        <h2>绑定内联样式</h2>
+        <P>v-bind:style="styleObj" 直接绑定到样式对象，让模板更清晰</P>
+        <pre >
+            data: {
+                styleObj: {
+                    width: '600px',
+                    height: '300px',
+                    background: '#eee',
+                    borderRadius: '10%'
+                }
+            }
+        </pre>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: "#div1",
+            data: {
+                isRed: true
+            }
+        })
+        var vm2 = new Vue({
+            el: "#div2",
+            data: {
+                isActive: true,
+                error: null
+            },
+            computed: {
+                classObject: function () {
+                    return {
+                        'bg-yellow': this.isActive && !this.error,
+                        'text-red': this.isActive && this.error,
+                    }
+                }
+            }
+        })
+        var vm3 = new Vue({
+            el: '#div3',
+            data: {
+                styleObj: {
+                    width: '600px',
+                    height: '260px',
+                    background: '#eee',
+                    borderRadius: '10%'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

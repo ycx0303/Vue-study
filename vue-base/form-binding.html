@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单输入绑定</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        h3 {
+            color: #e55039
+        }
+    </style>
+</head>
+
+<body>
+    <h1>表单输入绑定</h1>
+    <hr>
+    <h3>用v-model在表单元素上创建数据双向绑定</h3>
+    <p>v-model 会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源。</p>
+    <hr>
+
+    <div id="demo1">
+        <h3>单行文本</h3>
+        <input type="text" v-model="msg1" placeholder="请在此输入">
+        <p>输入值为：{{ msg1 }}</p>
+        <hr>
+
+        <h3>多行文本</h3>
+        <span>Multiple message is：</span>
+        <p style="white-space:pre-line"> {{msg2}} </p>
+        <textarea v-model="msg2" cols="50" rows="5" placeholder="add multiple lines"></textarea>
+        <hr>
+
+        <h3>单个复选框</h3>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ text }}</label>
+        <hr>
+
+        <h3>多个复选框</h3>
+        <input type="checkbox" id="Jack" value="Jack" v-model="checkedNames">
+        <label for="Jack">Jack</label>
+        <input type="checkbox" id="Mike" value="Mike" v-model="checkedNames">
+        <label for="Mike">Mike</label>
+        <input type="checkbox" id="Tom" value="Tom" v-model="checkedNames">
+        <label for="Tom">Tom</label>
+        <input type="checkbox" id="Jeason" value="Jeason" v-model="checkedNames">
+        <label for="Jeason">Jeason</label>
+        <br>
+        <span>checked names: {{ checkedNames }}</span>
+        <hr>
+
+        <h3>单选按钮</h3>
+        <input type="radio" id="one" value="one" v-model="picked">
+        <label for="one">One</label>
+        <input type="radio" id="Two" value="Two" v-model="picked">
+        <label for="Two">Two</label>
+        <br>
+        <span> Picked: {{ picked }} </span>
+        <hr>
+
+        <h3>选择框</h3>
+        <h4>v-for渲染的动态绑定</h4>
+        <span>单选框：</span>
+        <select v-model="selected">
+            <option value="" disabled>请选择你要翻译的词</option>
+            <option v-for="item in items" :value="item.value">{{ item.name }}</option>
+        </select>
+        <span>翻译：{{ selected }}</span>
+        <br>
+        <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+        <span> {{ toggle }} </span>
+        <hr>
+
+        <span>多选框：</span>
+        <select name="" id="" v-model="selected_mul" multiple>
+            <option disabled>选择你想吃的食物</option>
+            <option>小龙虾</option>
+            <option>牛蛙</option>
+            <option>酸菜鱼</option>
+            <option>火锅</option>
+        </select>
+        <span>我今晚想吃：{{ selected_mul }}</span>
+        <br>
+        <hr>
+        <h3>修饰符</h3>
+        <h4>.lazy</h4>
+        <input type="text" v-model.lazy='msg3'>
+        <span>使用.lazy修饰符{{ msg3 }} （类似于jquery的keyup事件）</span>
+        <span></span>
+        <br>
+        <input type="text" v-model='msg4'>
+        <span>没有使用.lazy修饰符{{ msg4 }}（类似于jquery的blur事件）</span>
+        <h4>.number</h4>
+        <p>将输入元素转为数值类型，而不是字符串</p>
+        <input type="number" v-model.number='age'>
+        <span>//typeof(vm1.age) == 'number'</span>
+
+        <h4>.trim</h4>
+        <p>自动过滤用户输入的首尾空白字符</p>
+        <input type="text" v-model.trim="msg5">
+        <span> 输入值为：{{ msg5 }}</span>
+        <p style="margin-top:100px;"></p>
+    </div>
+
+
+
+    <script>
+        var vm1 = new Vue({
+            el: '#demo1',
+            data: {
+                msg1: '我是初始值',
+                msg2: '',
+                checked: false,
+                text: '我没有被选中哦~',
+                checkedNames: [],
+                picked: '',
+                selected: '',
+                selected_mul: [],
+                toggle: false,
+                items: [{
+                    name: '狗子',
+                    value: 'dog'
+                }, {
+                    name: '猪子',
+                    value: 'pig'
+                }, {
+                    name: '猫子',
+                    value: 'cat'
+                }],
+                msg3: '',
+                msg4: '',
+                msg5: '',
+                age: ''
+
+            },
+            watch: {
+                checked(val) {
+                    if (val) {
+                        this.text = '我被选中啦~'
+                    } else {
+                        this.text = '我没有被选中哦~'
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

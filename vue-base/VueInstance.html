@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue实例</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //新建数组对象
+        var data = { a: 1 };
+        //创建vue实例，它向vue的响应式系统中加入了其data对象中能找到的所有属性
+        //当属性值发生变化时，视图也会响应式地发生变化
+        var vm = new Vue({
+            data: data
+        })
+        vm.a == data.a // => true
+        
+        vm.a = 2;
+        data.a // => 2
+
+        data.a = 3;
+        vm.a // => 3
+
+        //只有实例被创建时data中存在的属性才是响应式的
+        //后来创建的属性更改不会触发任何视图更新
+        vm.b = 'Hi';
+        data.b // => undefined
+        
+        //生命周期钩子
+        //created钩子：在一个实例被创建后执行代码
+        new Vue({
+            data:{
+                a:1
+            },
+            created: function() {
+                //this 指向vm实例
+                console.log('a is: '+ this.a) // "a is: 1"
+            }
+        })
+
+
+    </script>
+</body>
+</html>
